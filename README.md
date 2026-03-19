@@ -1,8 +1,8 @@
 # AI-Assignment-3
 <br>
 
-// all the python code files are attached to the rpeosorot
-
+// all the python code files are attached to the repository 
+//scsreenshots of the output for each code has been attached after every part 
 
 1)When actions have different costs in a state based search space, an obvious choice is to use best-first search where the evaluation function is the cost of the path from the root to the current node. This is called Dijkstra’s algorithm by the theoretical computer science community, and uniform-cost search Uniform-cost search by the AI community. Implement the Dijkstra’s algorithm to all the cities in India and their Road distances. This info may be taken from open sources.
 
