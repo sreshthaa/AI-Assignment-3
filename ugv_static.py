@@ -3,7 +3,7 @@ import heapq
 n = 10
 grid = [[0]*n for _ in range(n)]
 
-# obstacles
+
 grid[3][3] = 1
 grid[3][4] = 1
 grid[3][5] = 1
@@ -42,7 +42,7 @@ def find_path(grid, start, goal):
                     heapq.heappush(heap, (priority, nxt))
                     parent[nxt] = curr
 
-    # rebuild path
+
     path = []
     cur = goal
     while cur:
