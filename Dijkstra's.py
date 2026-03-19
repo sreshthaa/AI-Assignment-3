@@ -1,6 +1,5 @@
 import heapq
 
-# simple graph (can expand if needed)
 city_map = {
     "Delhi": [("Agra", 233), ("Jaipur", 280)],
     "Agra": [("Delhi", 233), ("Jaipur", 240), ("Lucknow", 335)],
@@ -12,7 +11,6 @@ def shortest_path(graph, start):
     heap = [(0, start)]
     dist = {}
     
-    # initialize distances
     for city in graph:
         dist[city] = float('inf')
     dist[start] = 0
