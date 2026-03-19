@@ -1,0 +1,83 @@
+import heapq
+import random
+
+n = 10
+grid = [[0]*n for _ in range(n)]
+
+# obstacles
+grid[3][3] = 1
+grid[3][4] = 1
+grid[3][5] = 1
+
+start = (0, 0)
+goal = (9, 9)
+
+def h(a, b):
+    return abs(a[0]-b[0]) + abs(a[1]-b[1])
+
+def find_path(grid, start, goal):
+    heap = [(0, start)]
+    cost = {start: 0}
+    parent = {start: None}
+
+    moves = [(1,0), (-1,0), (0,1), (0,-1)]
+
+    while heap:
+        _, curr = heapq.heappop(heap)
+
+        if curr == goal:
+            break
+
+        for m in moves:
+            nxt = (curr[0]+m[0], curr[1]+m[1])
+
+            if 0 <= nxt[0] < n and 0 <= nxt[1] < n:
+                if grid[nxt[0]][nxt[1]] == 1:
+                    continue
+
+                new_cost = cost[curr] + 1
+
+                if nxt not in cost or new_cost < cost[nxt]:
+                    cost[nxt] = new_cost
+                    priority = new_cost + h(nxt, goal)
+                    heapq.heappush(heap, (priority, nxt))
+                    parent[nxt] = curr
+
+    # rebuild path
+    path = []
+    cur = goal
+    while cur:
+        path.append(cur)
+        cur = parent.get(cur)
+
+    return path[::-1]
+
+path = find_path(grid, start, goal)
+print("Path:", path)
+
+
+def dynamic_move(grid, start, goal):
+    curr = start
+    final_path = [curr]
+
+    while curr != goal:
+        path = find_path(grid, curr, goal)
+
+        if not path or len(path) < 2:
+            print("No path possible")
+            return None
+
+        # move one step
+        curr = path[1]
+        final_path.append(curr)
+
+        # randomly add obstacle
+        if random.random() < 0.2:
+            x = random.randint(0, 9)
+            y = random.randint(0, 9)
+            grid[x][y] = 1
+
+    return final_path
+
+res = dynamic_move(grid, start, goal)
+print("Dynamic path:", res)
